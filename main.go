@@ -20,8 +20,11 @@ func main() {
 	fmt.Println()
 
 	// 加载配置文件
+	// 优先级：环境变量 > 命令行参数 > 默认值
 	configFile := "config.json"
-	if len(os.Args) > 1 {
+	if envConfigFile := os.Getenv("CONFIG_FILE"); envConfigFile != "" {
+		configFile = envConfigFile
+	} else if len(os.Args) > 1 {
 		configFile = os.Args[1]
 	}
 
